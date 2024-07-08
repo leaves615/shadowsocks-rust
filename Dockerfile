@@ -55,3 +55,7 @@ COPY --from=builder /root/shadowsocks-rust/docker/docker-entrypoint.sh /usr/bin/
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD [ "ssserver", "--log-without-time", "-a", "nobody", "-c", "/etc/shadowsocks-rust/config.json" ]
+
+FROM alpine:3.17 AS ssmanager
+
+COPY --from=builder /root/shadowsocks-rust/target/release/ssmanager /usr/bin/
